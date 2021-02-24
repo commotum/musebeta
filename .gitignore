@@ -1,0 +1,21 @@
+.next
+node_modules
+.DS_Store
+
+# Generated log files
+*.log
+.now
+.vercel
+.env
+.idea
+storybook-static
+dist
+out
+.next
+venv
+gpt_2/models
+gpt_2/checkpoint
+gpt_2/samples
+__pycache__
+data
+last_data

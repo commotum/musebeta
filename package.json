@@ -1,0 +1,24 @@
+{
+  "name": "vuca_app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "install": "pip install -r ./requirements.txt && pip install -r gpt_2/requirements.txt && cd frontend && npm i",
+    "download-models": "cd gpt_2 && python download_model.py 117M",
+    "download-models:all": "cd gpt_2 && python download_model.py 117M && python download_model.py 355M && python download_model.py 774M  && python download_model.py 1558M",
+    "test": "python -m unittest && cd frontend && npm run test",
+    "start": "python manage.py runserver 0.0.0.0:8000",
+    "start:dev": "python manage.py runserver localhost:8000",
+    "docker:build": "docker build -t vuca:0.0.1 .",
+    "docker:create": "docker run -p 8000:8000 -v $(pwd)/gpt_2/data:/usr/src/app/gpt_2/data --name vuca_app vuca:0.0.1",
+    "docker:start": "docker start vuca_app",
+    "docker:stop": "docker kill vuca_app",
+    "docker:remove": "docker rm vuca_app",
+    "docker:bash": " docker exec -it vuca_app /bin/bash",
+    "dev": "((npm run start:dev)&) && npm run start:frontend",
+    "dev:frontend": "cd frontend && npm run start",
+    "build": "rm -rf backend/dist && cd frontend && npm run build && mv out ../backend/dist"
+  },
+  "author": "Bogdan Sikora <bogdan.sikora@toptal.com>"
+}
