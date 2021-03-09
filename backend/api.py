@@ -1,10 +1,16 @@
 from django.http import HttpRequest
 
 from backend import utils
+from backend.services.data_service import download_gpt2_models
 
 
 def get_models(req: HttpRequest):
     return utils.json_response(utils.list_models())
+
+
+def download_models(req: HttpRequest, name):
+    download_gpt2_models(name)
+    return utils.json_response({'success': f'model {name} has been downloaded'})
 
 
 def get_model(req: HttpRequest):

@@ -14,8 +14,10 @@ SECRET_KEY = '1fbvopyl(+&3u^c#d2rs5-vj@b18sv59lh4j&9f4avbv2#4yfx'
 DEBUG = True
 
 ALLOWED_HOSTS = [
+    'localhost',
+    '127.0.0.1',
+    'muse.eu-west-2.elasticbeanstalk.com',
 ]
-
 
 # Application definition
 

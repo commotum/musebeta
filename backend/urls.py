@@ -17,5 +17,6 @@ urlpatterns = [
     path('train', TemplateView.as_view(template_name="train.html")),
     path('generate', TemplateView.as_view(template_name="generate.html")),
     path('history', TemplateView.as_view(template_name="history.html")),
+    path('download/<str:name>', api.download_models),
     path('', TemplateView.as_view(template_name="index.html")),
 ]

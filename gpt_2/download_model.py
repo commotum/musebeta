@@ -3,25 +3,25 @@ import sys
 import requests
 from tqdm import tqdm
 
-
-MODEL_DIR = os.path.join(os.path.dirname(__file__), 'data', 'models')
+file_dir = os.path.dirname(os.path.realpath(__file__))
 
 if len(sys.argv) != 2:
-    print('You must enter the model name as a parameter, e.g.: download_model.py 117M')
+    print('You must enter the model name as a parameter, e.g.: download_model.py 124M')
     sys.exit(1)
 
 model = sys.argv[1]
-subdir = os.path.join(MODEL_DIR, model)
-if not os.path.exists(subdir):
-    os.makedirs(subdir)
-subdir = subdir.replace('\\', '/')  # needed for Windows
 
-for filename in ['checkpoint', 'encoder.json', 'hparams.json', 'model.ckpt.data-00000-of-00001', 'model.ckpt.index',
-                 'model.ckpt.meta', 'vocab.bpe']:
+subdir = os.path.join('models', model)
+model_dir = os.path.join(file_dir, 'data', subdir)
+if not os.path.exists(model_dir):
+    os.makedirs(model_dir)
+subdir = subdir.replace('\\','/') # needed for Windows
 
-    r = requests.get(f"https://storage.googleapis.com/gpt-2/models/{model}/{filename}", stream=True)
+for filename in ['checkpoint','encoder.json','hparams.json','model.ckpt.data-00000-of-00001', 'model.ckpt.index', 'model.ckpt.meta', 'vocab.bpe']:
 
-    with open(os.path.join(subdir, filename), 'wb') as f:
+    r = requests.get("https://openaipublic.blob.core.windows.net/gpt-2/" + subdir + "/" + filename, stream=True)
+
+    with open(os.path.join(model_dir, filename), 'wb') as f:
         file_size = int(r.headers["content-length"])
         chunk_size = 1000
         with tqdm(ncols=100, desc="Fetching " + filename, total=file_size, unit_scale=True) as pbar:
