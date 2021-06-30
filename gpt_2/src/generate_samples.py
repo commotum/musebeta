@@ -14,7 +14,7 @@ def sample_model(
         seed=None,
         nsamples=0,
         input=None,
-        batch_size=1,
+        batch_size=20,
         length=None,
         temperature=1,
         top_k=0,
